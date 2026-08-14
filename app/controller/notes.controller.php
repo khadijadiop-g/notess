@@ -1,8 +1,9 @@
 <?php
-require_once dirname(__DIR__)."/model/anne.model.php";
-require_once dirname(__DIR__)."/model/note.model.php";
+require_once dirname(__DIR__)."/model/repository/anne.model.php";
+require_once dirname(__DIR__)."/model/repository/note.model.php";
 
-function listerNote(){
+class notesController{
+   public function listerNote(){
 $matieres = getAllTable("matieres");
 $classes = getAllTable("classes");
 $periodes = getAllTable("periodes");
@@ -17,4 +18,5 @@ $moyenne = getMoyenne($classeId,$matiereId,$periodeId);
 
 require_once dirname(__DIR__)."/view/note.html.php";
     
+}
 }

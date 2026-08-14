@@ -1,7 +1,7 @@
 <?php
 
-
-function connexionDB(): PDO
+class Database{
+   public function connexionDB(): PDO
 {
 
     try {
@@ -21,7 +21,7 @@ function connexionDB(): PDO
 }
 
 
-function deconnecteDB(): PDO
+public function deconnecteDB(): PDO
 {
     $config = require_once "env.php";
     static $pdo = null;
@@ -46,7 +46,7 @@ function deconnecteDB(): PDO
 }
 
 
-function query(PDO $pdo, string $sql, bool $single = true): array
+public function query(PDO $pdo, string $sql, bool $single = true): array
 {
     $query = $pdo->query($sql);
     return $single ? $query->fetch() : $query->fetchAll();
@@ -54,30 +54,32 @@ function query(PDO $pdo, string $sql, bool $single = true): array
 
 }
 
-function prepare(PDO $pdo, string $sql, array $datas)
+public function prepare(PDO $pdo, string $sql, array $datas)
 {
     $prepare = $pdo->prepare($sql);
     $prepare->execute($datas);
     return $prepare;
 }
 
-function executeQuery(PDO $pdo, string $sql, array $datas, bool $single = true): array
+public function executeQuery(PDO $pdo, string $sql, array $datas, bool $single = true): array
 {
-    $statement = prepare($pdo, $sql, $datas);
+    $statement = $this->prepare($pdo, $sql, $datas);
     $result = $single ? $statement->fetch() : $statement->fetchAll();
 
     return $result ?: [];
 }
 
-function executeUpdate(PDO $pdo, string $sql, array $datas): int
+public function executeUpdate(PDO $pdo, string $sql, array $datas): int
 {
-    prepare($pdo, $sql, $datas);
+    $this->prepare($pdo, $sql, $datas);
 
     return (str_starts_with(strtoupper($sql), 'INSERT')) ? $pdo->lastInsertId() : $prepare->rowCount();
 }
 
-function getAllTable(string $tableName):array{
-    $pdo = deconnecteDB();
+public function getAllTable(string $tableName):array{
+    $pdo = $this->deconnecteDB();
     $sql = "SELECT * FROM $tableName";
-    return query( $pdo,  $sql,  false);  
+    return $this->query($pdo, $sql, false);
+}
+
 }

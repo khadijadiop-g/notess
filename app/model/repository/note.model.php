@@ -1,6 +1,7 @@
 <?php
 
-function getMoyenne(int $id_classe,int $id_matiere,int $id_periode):float{
+class NoteModel{
+    public function getMoyenne(int $id_classe,int $id_matiere,int $id_periode):float{
     $pdo = deconnecteDB();
     $sql = "SELECT ROUND(AVG((d1 + d2 + comp) / 3.0), 2) AS moyenne_classe
             FROM ( SELECT
@@ -23,4 +24,6 @@ function getMoyenne(int $id_classe,int $id_matiere,int $id_periode):float{
     $moyenne = executeQuery($pdo,$sql,['id_classe'=>$id_classe,'id_matiere'=>$id_matiere,
                                         'id_periode'=>$id_periode]);
     return $moyenne['moyenne_classe'] ?? 0.0;
+}
+
 }

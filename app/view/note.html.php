@@ -355,7 +355,23 @@ $moyenne = $moyenne ?? 0;
         </tr>
       </thead>
       <tbody id="tbody">
-        <!-- lignes générées par JS -->
+       <tr>
+        <td>
+          <div class="eleve-cell">
+            <div class="idx" style="display:inline-block;width:18px;">${i+1}</div>
+            <div class="avatar">${initials(s.name)}</div>
+            <div>
+              <div class="eleve-name">${s.name}</div>
+              <div class="eleve-id">${s.id}</div>
+            </div>
+          </div>
+        </td>
+        <td><input class="grade-input" type="number" min="0" max="20" step="0.5" value="${s.d1}" data-field="d1" data-idx="${i}"></td>
+        <td><input class="grade-input" type="number" min="0" max="20" step="0.5" value="${s.d2}" data-field="d2" data-idx="${i}"></td>
+        <td><input class="grade-input comp" type="number" min="0" max="20" step="0.5" value="${s.comp}" data-field="comp" data-idx="${i}"></td>
+        <td><span class="moyenne-val" data-moy="${i}"></span></td>
+        <td><span class="pill" data-app="${i}"><span class="pdot"></span><span class="app-label"></span></span></td>
+       </tr>
       </tbody>
       <tfoot>
         <tr><td colspan="6">Navigation clavier disponible · valeurs limitées de 0 à 20</td></tr>
